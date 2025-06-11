@@ -1,6 +1,19 @@
 const mongoose = require('mongoose')
 
 const characterSchema = new mongoose.Schema({
+    isUser: {
+        type: Boolean,
+        default: false,
+    },
+    userAuth: {
+        email: String,
+        password: String,
+        authProvider: String,
+    },
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Character',
+    },
     photo: {
         type: String
     },
