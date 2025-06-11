@@ -61,9 +61,12 @@ router.post('/', upload.single("photo"), async (req, res) => {
         });
 
         await newCharacter.save();
+        console.log("Created Character:\n", JSON.stringify(newCharacter, null, 2));
         res.status(201).json({ message: 'Character created successfully', character: newCharacter });
     } catch (err) {
         console.error("CREATION ERROR:", err);
         res.status(500).json({ message: 'Error creating a character' });
     }
 });
+
+module.exports = router

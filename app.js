@@ -12,4 +12,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
+const characterRoutes = require('./routes/character')
+app.use('/characters', characterRoutes)
+
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
