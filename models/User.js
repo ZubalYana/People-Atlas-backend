@@ -15,7 +15,13 @@ const userSchema = new mongoose.Schema({
     character: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Character'
-    }
+    },
+    isVerified: {
+        type: Boolean,
+        default: false
+    },
+    emailVerificationCode: { type: String },
+
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema);
