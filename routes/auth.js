@@ -17,7 +17,13 @@ router.post('/register', async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const newCharacter = new Character({ name, email });
+        const newCharacter = new Character({
+            name: name || "Unnamed",
+            email,
+            isUser: true,
+            tags: [],
+            otherRelationships: [],
+        });
         await newCharacter.save();
 
 
@@ -30,10 +36,11 @@ router.post('/register', async (req, res) => {
         });
 
         const code = Math.floor(100000 + Math.random() * 900000).toString();
+
         const newUser = new User({
             email,
             password: hashedPassword,
-            character: newCharacter._id,
+            character: newCharacter._id, // link character here
             isVerified: false,
             emailVerificationCode: code,
         });
@@ -46,7 +53,6 @@ router.post('/register', async (req, res) => {
             html: `<p>Use the following code to verify your email: <b>${code}</b></p>`,
         });
 
-
         res.status(201).json({
             message: 'User registered. Please verify your email before logging in.',
         });
@@ -56,6 +62,7 @@ router.post('/register', async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 });
+
 
 
 router.post('/login', async (req, res) => {
