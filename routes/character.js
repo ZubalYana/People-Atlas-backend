@@ -22,7 +22,6 @@ router.post('/', upload.single("photo"), async (req, res) => {
         const {
             name,
             lastName,
-            patronymic,
             nickname,
             phone,
             email,
@@ -43,7 +42,6 @@ router.post('/', upload.single("photo"), async (req, res) => {
             photo: characterPhoto,
             name,
             lastName,
-            patronymic,
             nickname,
             phone,
             email,
@@ -54,7 +52,7 @@ router.post('/', upload.single("photo"), async (req, res) => {
             tags: Array.isArray(tags) ? tags : tags ? [tags] : [],
             otherRelationships: Array.isArray(otherRelationships) ? otherRelationships : otherRelationships ? [otherRelationships] : [],
             birthday,
-            interests,
+            interests: Array.isArray(interests) ? interests : interests ? [interests] : [],
             relatedEvents,
             howDidYouMeet,
             notes

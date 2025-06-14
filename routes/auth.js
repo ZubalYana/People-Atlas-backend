@@ -40,7 +40,7 @@ router.post('/register', async (req, res) => {
         const newUser = new User({
             email,
             password: hashedPassword,
-            character: newCharacter._id, // link character here
+            character: newCharacter._id,
             isVerified: false,
             emailVerificationCode: code,
         });
@@ -62,8 +62,6 @@ router.post('/register', async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 });
-
-
 
 router.post('/login', async (req, res) => {
     try {
@@ -111,6 +109,21 @@ router.post('/verify-code', async (req, res) => {
     } catch (err) {
         console.error("VERIFY CODE ERROR:", err);
         res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+router.get('/user', async (req, res) => {
+    try {
+        const token = req.headers.authorization?.split(" ")[1];
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await User.findById(decoded.userId).populate("character");
+
+        if (!user) return res.status(404).json({ message: "User not found" });
+
+        res.json(user);
+    } catch (err) {
+        console.error("GET USER ERROR:", err);
+        res.status(401).json({ message: "Unauthorized" });
     }
 });
 

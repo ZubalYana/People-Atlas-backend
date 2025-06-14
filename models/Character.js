@@ -26,10 +26,6 @@ const characterSchema = new mongoose.Schema({
         type: String,
         trim: true
     },
-    patronymic: {
-        type: String,
-        trim: true
-    },
     nickname: {
         type: String,
         trim: true
@@ -65,8 +61,8 @@ const characterSchema = new mongoose.Schema({
         type: String
     },
     interests: {
-        type: String,
-        trim: true
+        type: [String],
+        default: [],
     },
     relatedEvents: {
         type: String,
