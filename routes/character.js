@@ -67,4 +67,14 @@ router.post('/', upload.single("photo"), async (req, res) => {
     }
 });
 
+router.get('/', async (req, res) => {
+    try {
+        const characters = await Character.find();
+        res.status(200).json(characters);
+    } catch (err) {
+        console.error("FETCH ERROR:", err);
+        res.status(500).json({ message: 'Error fetching characters' });
+    }
+});
+
 module.exports = router
