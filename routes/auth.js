@@ -112,21 +112,4 @@ router.post('/verify-code', async (req, res) => {
     }
 });
 
-router.get('/user', async (req, res) => {
-    try {
-        const token = req.headers.authorization?.split(" ")[1];
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const user = await User.findById(decoded.userId).populate("character");
-
-        if (!user) return res.status(404).json({ message: "User not found" });
-
-        res.json(user);
-    } catch (err) {
-        console.error("GET USER ERROR:", err);
-        res.status(401).json({ message: "Unauthorized" });
-    }
-});
-
-
-
 module.exports = router;

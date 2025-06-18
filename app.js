@@ -14,7 +14,10 @@ app.use(cors())
 
 const characterRoutes = require('./routes/character')
 const authRoutes = require('./routes/auth')
+const userRoutes = require('./routes/user')
 app.use('/api/characters', characterRoutes)
 app.use('/api/auth', authRoutes)
+app.use('/api/user', userRoutes)
+
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
